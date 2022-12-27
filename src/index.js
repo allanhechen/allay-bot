@@ -3,11 +3,11 @@ const path = require('node:path');
 const start = require('./utils/start');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
 const { token, server_path } = require('./config.json');
-const lock = `${__dirname}\\${server_path}.lock`;
+const cron = require('node-cron');
+const backup = require('./utils/backup');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
 start();
-
 
 client.commands = new Collection();
 const commandsPath = path.join(__dirname, 'commands');
@@ -37,5 +37,13 @@ client.on(Events.InteractionCreate, async interaction => {
 		await interaction.reply({ content: 'There was an error while executing this command!', ephemeral: true });
 	}
 });
+
+// cron.schedule('* * 5 * *', () => {
+//   backup();
+// });
+
+setTimeout(() => {
+	backup();
+}, 30000);
 
 client.login(token);
