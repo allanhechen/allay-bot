@@ -1,6 +1,7 @@
 const rcon = require('../utils/rcon');
 const eventEmitter = require('./events');
 const { spawnSync, execSync } = require('child_process');
+const start = require('./start');
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -34,6 +35,8 @@ function save() {
   } catch (err) {
     console.error(err);
   }
+
+  const start = require('./utils/start');
 }
 
 module.exports = function() {
