@@ -34,9 +34,10 @@ function save() {
     execCommand('git push');
   } catch (err) {
     console.error(err);
+    return;
   }
 
-  const start = require('./utils/start');
+  start();
 }
 
 module.exports = function() {
