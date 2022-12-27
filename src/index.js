@@ -44,6 +44,6 @@ client.on(Events.InteractionCreate, async interaction => {
 
 setTimeout(() => {
 	backup();
-}, 30000);
+}, 10000);
 
 client.login(token);

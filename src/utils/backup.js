@@ -1,5 +1,6 @@
 const rcon = require('../utils/rcon');
 const eventEmitter = require('./events');
+const { spawnSync, execSync } = require('child_process');
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -15,9 +16,24 @@ function sendMessage(time) {
   });
 }
 
+function execCommand(command) {
+  return execSync(command, {
+    // cwd: '';
+  });
+}
+
 function save() {
   eventEmitter.removeListener('stopped', save);
-  console.log('saving');
+  try {
+    execCommand('cd');
+    console.log('add to git');
+    execCommand('git add .');
+    execCommand('git commit -m "update world"');
+    console.log('upload to github')
+    execCommand('git push');
+  } catch (err) {
+    console.error(err);
+  }
 }
 
 module.exports = function() {
