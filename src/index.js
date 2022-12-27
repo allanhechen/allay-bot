@@ -2,7 +2,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 const start = require('./utils/start');
 const { Client, Collection, Events, GatewayIntentBits } = require('discord.js');
-const { token, server_path } = require('./config.json');
+const { token } = require('./config.json');
 const cron = require('node-cron');
 const backup = require('./utils/backup');
 
@@ -38,12 +38,8 @@ client.on(Events.InteractionCreate, async interaction => {
 	}
 });
 
-// cron.schedule('* * 5 * *', () => {
-//   backup();
-// });
-
-setTimeout(() => {
-	backup();
-}, 10000);
+cron.schedule('* * 24 * * ', () => {
+  backup();
+});
 
 client.login(token);

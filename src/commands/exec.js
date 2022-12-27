@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require('discord.js');
 const rcon = require('../utils/rcon');
-const eventEmitter = require('../utils/events');
+const allowed = require('../utils/authenticate');
 
 module.exports = {
 	data: new SlashCommandBuilder()
@@ -12,17 +12,21 @@ module.exports = {
         .setDescription('The command to execute')
         .setRequired(true)),
 	async execute(interaction) {
-		await interaction.deferReply({ ephemeral: true });
+    if (allowed(interaction.user.id)) {
+      await interaction.deferReply({ ephemeral: true });
 
-    rcon.connect().then(() => {
-      return rcon.send(interaction.options.getString('command'));
-    }).then(async res => {
-      await interaction.editReply(res);
-    }).then(() => {
-      return rcon.disconnect();
-    }).catch(async err => {
-      await interaction.editReply('Server is not running!');
-      return;
-    });
+      rcon.connect().then(() => {
+        return rcon.send(interaction.options.getString('command'));
+      }).then(async res => {
+        await interaction.editReply(res);
+      }).then(() => {
+        return rcon.disconnect();
+      }).catch(async err => {
+        await interaction.editReply('Server is not running!');
+        return;
+      });
+    } else {
+      await interaction.reply({ content: 'Insufficient permissions', ephemeral: true });
+    }
 	},
 };

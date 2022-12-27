@@ -19,14 +19,14 @@ function sendMessage(time) {
 
 function execCommand(command) {
   return execSync(command, {
-    // cwd: '';
+    cwd: `${__dirname}\\..\\server`
   });
 }
 
 function save() {
   eventEmitter.removeListener('stopped', save);
   try {
-    execCommand('cd');
+    // console.log(execCommand('cd').toString());
     console.log('add to git');
     execCommand('git add .');
     execCommand('git commit -m "update world"');
