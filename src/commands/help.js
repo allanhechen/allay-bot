@@ -5,8 +5,9 @@ module.exports = {
 		.setName('help')
 		.setDescription('Help!'),
 	async execute(interaction) {
-		await interaction.reply('1. Grab the ip with /ip\n\
-                             2. Join the world in minecraft\n\
-                             3. Paste the pinned command in game');
+		await interaction.reply('\
+1. Grab the ip with /ip\n\
+2. Join the world in minecraft\n\
+3. Paste the pinned command in game');
 	},
 };
