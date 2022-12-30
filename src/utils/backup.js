@@ -41,21 +41,21 @@ function save() {
 }
 
 module.exports = function() {
-  delay(1000)
+  delay(0)
     .then(() => {
-      console.log('1 second has passed');
+      // console.log('1 second has passed');
       sendMessage(10);
-      return delay(1000);
+      return delay(1200000);
     })
     .then(() => {
-      console.log('2 seconds have passed');
+      // console.log('2 seconds have passed');
       sendMessage(5);
-      return delay(1000);
+      return delay(300000);
     })
     .then(() => {
-      console.log('3 seconds have passed');
+      // console.log('3 seconds have passed');
       sendMessage(1);
-      return delay(1000);
+      return delay(240000);
     })
     .then(() => {
       eventEmitter.on('stopped', save);
