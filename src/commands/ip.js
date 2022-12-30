@@ -8,8 +8,6 @@ module.exports = {
 	async execute(interaction) {
     await interaction.deferReply();
 
-    let ip = 'nothing';
-
     exec('nslookup myip.opendns.com resolver1.opendns.com', async (error, stdout, stderr) => {
       if (error) {
         console.error(`exec error: ${error}`);
